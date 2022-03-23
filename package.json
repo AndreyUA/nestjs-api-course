@@ -2,7 +2,7 @@
   "name": "nestjs-api-course",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Andrey Zhygariev",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
