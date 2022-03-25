@@ -14,6 +14,7 @@ import { AppController } from './app.controller';
 // Services
 import { AppService } from './app.service';
 
+// Config
 import { getMongoConfig } from './configs/mongoConfig';
 
 @Module({
