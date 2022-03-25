@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo:
-    image: mongo
+    image: mongo:4.4.4
     container_name: mongo
     restart: always
     environment:
@@ -10,8 +10,8 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./mongo-data:/data/db
-    command: --wiredTigerCacheSizeGD 1.5
+      - ./mongo-database:/data/db
+    command: --wiredTigerCacheSizeGB 1.5
 
 # sudo docker-compose up -d     ---> create container
 # sudo docker ps | grep mongo   ---> check container's status

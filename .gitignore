@@ -36,3 +36,6 @@ lerna-debug.log*
 
 # configurations
 .env
+
+# MongoDB
+mongo-database
