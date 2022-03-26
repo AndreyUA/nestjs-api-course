@@ -19,4 +19,5 @@ export class ProductDto {
   characteristics: {
     [key: string]: string;
   };
+  createdAt: Date;
 }
