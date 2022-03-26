@@ -1,4 +1,9 @@
-export class ProductModel {
+export class FindProductDto {
+  category: string;
+  limit: number;
+}
+
+export class ProductDto {
   _id: string;
   image: string;
   title: string;

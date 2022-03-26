@@ -9,13 +9,13 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { ProductModel } from './product.model';
-import { FindProductDto } from './dto/find-product.dto';
+// Types
+import { FindProductDto, ProductDto } from './dto/product.dto';
 
 @Controller('product')
 export class ProductController {
   @Post('create')
-  async create(@Body() dto: Omit<ProductModel, '_id'>) {
+  async create(@Body() dto: Omit<ProductDto, '_id'>) {
     console.log(dto);
   }
 
@@ -25,7 +25,7 @@ export class ProductController {
   }
 
   @Patch(':id')
-  async patch(@Param('id') id: string, @Body() dto: ProductModel) {
+  async patch(@Param('id') id: string, @Body() dto: ProductDto) {
     console.log(id);
     console.log(dto);
   }
