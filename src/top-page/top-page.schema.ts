@@ -62,9 +62,6 @@ export class TopPage {
 
   @Prop({ type: () => [String] })
   tags: Array<string>;
-
-  @Prop()
-  createdAt: Date;
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPage);

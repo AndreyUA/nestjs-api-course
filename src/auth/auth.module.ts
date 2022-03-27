@@ -6,6 +6,7 @@ import { Auth, AuthSchema } from './auth.schema';
 
 // Controllers
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 
 @Module({
   imports: [
@@ -17,5 +18,6 @@ import { AuthController } from './auth.controller';
     ]),
   ],
   controllers: [AuthController],
+  providers: [AuthService],
 })
 export class AuthModule {}

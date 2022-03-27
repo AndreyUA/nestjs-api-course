@@ -51,9 +51,6 @@ export class Product {
 
   @Prop({ type: () => [ProductCharacteristic], _id: false })
   characteristics: Array<ProductCharacteristic>;
-
-  @Prop()
-  createdAt: Date;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

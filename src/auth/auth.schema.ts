@@ -13,9 +13,6 @@ export class Auth {
 
   @Prop()
   passwordHash: string;
-
-  @Prop()
-  createdAt: Date;
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);
