@@ -24,7 +24,8 @@ export class AuthService {
     const newUser = new this.authModel({
       email: dto.login,
       passwordHash: hashedPassword,
-      _id: uuid(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return newUser.save();
