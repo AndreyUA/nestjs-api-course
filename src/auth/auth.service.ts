@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { genSalt, hash } from 'bcryptjs';
-import { v4 as uuid } from 'uuid';
+import { Model } from 'mongoose';
+import { genSalt, hash, compare } from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 
 // Schemas
 import { Auth, AuthDocument } from './auth.schema';
@@ -10,11 +10,15 @@ import { Auth, AuthDocument } from './auth.schema';
 // Types
 import { AuthDto } from './dto/auth.dto';
 
+// Constants
+import { INCORRECT_CREDENTIALS } from './auth.constants';
+
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(Auth.name)
     private readonly authModel: Model<AuthDocument>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async createUser(dto: AuthDto): Promise<AuthDocument> {
@@ -33,5 +37,31 @@ export class AuthService {
 
   async findExistingUser(email: string) {
     return this.authModel.findOne({ email }).exec();
+  }
+
+  async validateUser(dto: AuthDto): Promise<Pick<Auth, 'email'>> {
+    const { login, password } = dto;
+
+    const user = await this.findExistingUser(login);
+
+    // Check if user exists
+    if (!user) {
+      throw new UnauthorizedException(INCORRECT_CREDENTIALS);
+    }
+
+    // Check user's password
+    const isPasswordCorrect = await compare(password, user.passwordHash);
+    if (!isPasswordCorrect) {
+      throw new UnauthorizedException(INCORRECT_CREDENTIALS);
+    }
+
+    return { email: user.email };
+  }
+
+  async login(email: string) {
+    const payload = { email };
+    return {
+      accessToken: await this.jwtService.signAsync(payload),
+    };
   }
 }
