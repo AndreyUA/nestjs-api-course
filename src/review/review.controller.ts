@@ -24,6 +24,9 @@ import { REVIEW_NOT_FOUND } from './reviev.constants';
 // Guards
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+// Decorator
+import { UserEmail } from 'src/decorators/user-email.decorator';
+
 @Controller('review')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
@@ -43,9 +46,14 @@ export class ReviewController {
     }
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('byProduct/:productId')
-  async getByProduct(@Param('productId') productId: string) {
+  async getByProduct(
+    @Param('productId') productId: string,
+    @UserEmail() email: string,
+  ) {
+    console.log(email);
+
     return this.reviewService.getByProduct(productId);
   }
 }
